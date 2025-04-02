@@ -33,9 +33,13 @@ mpl = 4
 sp_g = sp_subgraph(g, g_empty, sources, targets, gt_dicts, max_path_length = mpl, mw_thresh = 5, perc_thresh = None, remove = remove)
 plotdir = 'figs'
 
-# restrict = ['TRN_VP2', 'M_l2PNm14', 'VP2+_adPN', 'FB1G', 'FC2A', 'FB5AB', 'FB5A', 'FB4N'] 
+# Possible restrictions
+
 restrict = None
+# restrict = ['TRN_VP2', 'M_l2PNm14', 'VP2+_adPN', 'FB1G', 'FC2A', 'FB5AB', 'FB5A', 'FB4N'] 
 # 'vDeltaF,vDeltaG,vDeltaH,vDeltaI', 'hDeltaJ'
+
+
 
 plot_graphviz(sp_g, ntcmap, nameSource, nameTarget, mw, mpl, restrict_type=restrict, plotdir = plotdir)
 
