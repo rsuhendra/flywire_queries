@@ -7,16 +7,28 @@ from collections import Counter
 fname = 'connections'	# automatically thresholded with weight 5
 # fname = 'connections_no_threshold'
 
-g = gt.load_graph(f'../../flywire_data/{fname}.gt')
-g_empty = gt.load_graph(f'../../flywire_data/{fname}_empty.gt')
-gt_dicts = pickle.load(open( f"../../flywire_data/{fname}_dicts.pkl", "rb" ))
+# data_dir = '../../flywire_data'
+data_dir = 'flywire_data'
+
+g = gt.load_graph(f'{data_dir}/{fname}.gt')
+g_empty = gt.load_graph(f'{data_dir}/{fname}_empty.gt')
+gt_dicts = pickle.load(open( f"{data_dir}/{fname}_dicts.pkl", "rb" ))
 
 v_id, type_map, side_map, ntcmap = gt_dicts
 
+# Zexin: The nameSource search term here is based on Regex, ask me if u dont know it. 
 nameSource, side = 'hDeltaC', None
 sources, source_types, source_term = search_neurons(nameSource, gt_dicts, side=side)
 
-#'vDeltaF,vDeltaG,vDeltaH,vDeltaI'
+# # Zexin: Code here for multiple types:
+# nameSources = ['hDeltaC', 'EPG']
+# sources, source_types, source_term = [], [], []
+# for nameSource in nameSources:
+# 	ss, sty, stm = search_neurons(nameSource, gt_dicts, side=side)
+# 	sources.append(ss) 
+# 	source_types.append(sty)
+# 	source_term.append(stm)
+
 
 nameTarget, side = 'PFL3', None
 targets, target_types, target_term = search_neurons(nameTarget, gt_dicts, side=side, exact = None)
@@ -25,12 +37,11 @@ targets, target_types, target_term = search_neurons(nameTarget, gt_dicts, side=s
 # nameRemove, side = 'FC2', None
 # remove, _, _ = search_neurons(nameRemove, gt_dicts, side=side, exact = None)
 
-
-# fig_shortest_paths(g, sources, targets, source_term, target_term, gt_dicts, max_path_length = 4, mw = 0)
+# Zexin: mw = minimum weight threshold, mpl = max path length
 
 mw = 5
 mpl = 4
-sp_g = sp_subgraph(g, g_empty, sources, targets, gt_dicts, max_path_length = mpl, mw_thresh = 5, perc_thresh = None, remove = remove)
+sp_g = sp_subgraph(g, g_empty, sources, targets, gt_dicts, max_path_length = mpl, mw_thresh = mw, perc_thresh = None, remove = None)
 plotdir = 'figs'
 
 # Possible restrictions
@@ -38,7 +49,6 @@ plotdir = 'figs'
 restrict = None
 # restrict = ['TRN_VP2', 'M_l2PNm14', 'VP2+_adPN', 'FB1G', 'FC2A', 'FB5AB', 'FB5A', 'FB4N'] 
 # 'vDeltaF,vDeltaG,vDeltaH,vDeltaI', 'hDeltaJ'
-
 
 
 plot_graphviz(sp_g, ntcmap, nameSource, nameTarget, mw, mpl, restrict_type=restrict, plotdir = plotdir)
