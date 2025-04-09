@@ -21,8 +21,8 @@ v_id, type_map, side_map, ntcmap = gt_dicts
 # sources, source_types, source_term = search_neurons(nameSource, gt_dicts, side=side)
 
 # Zexin: Code here for multiple types:
-# nameSources = ['hDeltaC', 'EPG']
-nameSources = ['M_l2PNl23','VP5\+_l2PN*']
+nameSources = ['hDeltaC', '*EPG']
+# nameSources = ['M_l2PNl23','VP5+_l2PN']
 sources, source_types, source_term = [], [], []
 for nameSource in nameSources:
 	ss, sty, stm = search_neurons(nameSource, gt_dicts, side=None)
@@ -31,7 +31,7 @@ for nameSource in nameSources:
 	source_term.extend(stm)
 
 
-nameTarget, side = 'PFL3', None
+nameTarget, side = 'SMP029', None
 targets, target_types, target_term = search_neurons(nameTarget, gt_dicts, side=side, exact = None)
 
 # print(f'Removing!')
@@ -54,6 +54,6 @@ restrict = None
 
 plot_graphviz(sp_g, ntcmap, nameSource, nameTarget, mw, mpl, restrict_type=restrict, plotdir = plotdir)
 
-neuron_class = pd.read_csv('../../flywire_data/classification_fillna.csv')
+neuron_class = pd.read_csv(f'{data_dir}/classification_fillna.csv')
 type_count = Counter(neuron_class.consensus_type)
 plot_graphviz_consolidated(sp_g, ntcmap, type_count, nameSource, nameTarget, mw, mpl, abs_thresh = None, plotdir = plotdir)

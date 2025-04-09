@@ -10,12 +10,16 @@ def search_neurons(term, gt_dicts, side = None, exact = None):
  
 	v_id, type_map, side_map, ntcmap = gt_dicts
 	
-	pattern = re.compile(term)
-	
-	if exact is None:
-		keys_result, values_result = zip(*[(key, value) for key, value in type_map.items() if pattern.search(value)])
+	if term[0] == '*':
+		keys_result, values_result = zip(*[(key, value) for key, value in type_map.items() if term[1:]==value])
 	else:
-		keys_result, values_result = zip(*[(key, value) for key, value in type_map.items() if pattern.fullmatch(value)])
+		keys_result, values_result = zip(*[(key, value) for key, value in type_map.items() if term in value])
+ 
+	# pattern = re.compile(term)
+	# if exact is None:
+	# 	keys_result, values_result = zip(*[(key, value) for key, value in type_map.items() if pattern.search(value)])
+	# else:
+	# 	keys_result, values_result = zip(*[(key, value) for key, value in type_map.items() if pattern.fullmatch(value)])
      
 	if side is None:
 		print(f'For term {term} there are {len(keys_result)} neurons.')
