@@ -17,17 +17,18 @@ gt_dicts = pickle.load(open( f"{data_dir}/{fname}_dicts.pkl", "rb" ))
 v_id, type_map, side_map, ntcmap = gt_dicts
 
 # Zexin: The nameSource search term here is based on Regex, ask me if u dont know it. 
-nameSource, side = 'hDeltaC', None
-sources, source_types, source_term = search_neurons(nameSource, gt_dicts, side=side)
+# nameSource, side = 'hDeltaC', None
+# sources, source_types, source_term = search_neurons(nameSource, gt_dicts, side=side)
 
-# # Zexin: Code here for multiple types:
+# Zexin: Code here for multiple types:
 # nameSources = ['hDeltaC', 'EPG']
-# sources, source_types, source_term = [], [], []
-# for nameSource in nameSources:
-# 	ss, sty, stm = search_neurons(nameSource, gt_dicts, side=side)
-# 	sources.append(ss) 
-# 	source_types.append(sty)
-# 	source_term.append(stm)
+nameSources = ['M_l2PNl23','VP5\+_l2PN*']
+sources, source_types, source_term = [], [], []
+for nameSource in nameSources:
+	ss, sty, stm = search_neurons(nameSource, gt_dicts, side=None)
+	sources.extend(ss) 
+	source_types.extend(sty)
+	source_term.extend(stm)
 
 
 nameTarget, side = 'PFL3', None
