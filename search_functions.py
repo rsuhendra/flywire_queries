@@ -5,7 +5,7 @@ from graphviz import Digraph
 import re
 import pickle
 
-def search_neurons(term, gt_dicts, side = None, exact = None):
+def search_neurons(term, gt_dicts, side = None):
 	# Use a dictionary comprehension to filter the dictionary based on the regex condition
  
 	v_id, type_map, side_map, ntcmap = gt_dicts
